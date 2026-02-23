@@ -1,8 +1,14 @@
-/* style.css */
+/* style.css - Versão Otimizada para Celular e PC */
+
+/* 1. Reset para evitar quebras de layout no celular */
+* {
+    box-sizing: border-box;
+}
+
 :root {
-    --bg-color: #0a1a2a; /* Azul noite nórdica */
-    --text-color: #e0f7fa; /* Branco gelo */
-    --accent-color: #81d4fa; /* Azul claro */
+    --bg-color: #0a1a2a; 
+    --text-color: #e0f7fa; 
+    --accent-color: #81d4fa; 
 }
 
 body {
@@ -16,27 +22,38 @@ body {
     align-items: center;
     min-height: 100vh;
     text-align: center;
+    overflow-x: hidden; /* Esconde rolagem horizontal acidental */
 }
 
 .container {
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: 40px;
+    padding: 40px 30px;
     border-radius: 20px;
     margin-top: 50px;
+    margin-bottom: 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    max-width: 90%;
-    width: 400px;
+    
+    /* Ajustes flexíveis para largura */
+    width: 100%;
+    max-width: 450px; 
 }
 
 h1 {
     font-weight: 300;
     letter-spacing: 2px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+/* Garante que nenhum SVG fuja da tela */
+svg {
+    max-width: 100%;
+    height: auto;
 }
 
 .clue-area {
-    margin: 30px 0;
+    margin: 20px 0;
     min-height: 150px;
     display: flex;
     flex-direction: column;
@@ -44,15 +61,24 @@ h1 {
     align-items: center;
 }
 
+.clue-area p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
 .next-btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 14px 28px;
     background-color: var(--accent-color);
     color: var(--bg-color);
     text-decoration: none;
     border-radius: 30px;
     font-weight: bold;
+    font-size: 1rem;
     transition: transform 0.2s, background-color 0.2s;
+    width: 80%; /* Botão mais largo para facilitar o clique no celular */
+    max-width: 250px;
 }
 
 .next-btn:hover {
@@ -60,10 +86,8 @@ h1 {
     background-color: #b3e5fc;
 }
 
-/* --- Animações do Urso --- */
-.bear-eyes {
-    animation: blink 4s infinite;
-}
+/* --- Animações do Avatar/Urso --- */
+.bear-eyes { animation: blink 4s infinite; }
 .bear-head {
     animation: breathe 3s ease-in-out infinite alternate;
     transform-origin: center bottom;
@@ -80,9 +104,38 @@ h1 {
 
 /* --- Animações das Pistas --- */
 .snowflake { animation: snowfall 3s linear infinite; }
-.star { animation: twinkle 2s ease-in-out infinite alternate; }
-.ship { animation: floatShip 3s ease-in-out infinite alternate; }
+.star { 
+    animation: twinkle 2s ease-in-out infinite alternate; 
+    transform-origin: center;
+    transform-box: fill-box; /* Garante que ela cresça a partir do próprio centro */
+}
 
+.ship {
+    animation: floatShipViking 4s ease-in-out infinite alternate;
+    transform-origin: center bottom;
+}
+.smoke {
+    animation: rise 2.5s infinite ease-in;
+    opacity: 0;
+    transform-origin: center;
+}
+.steam {
+    animation: riseSteam 3s infinite ease-in-out;
+    opacity: 0;
+}
+.steam:nth-child(2) { animation-delay: 1.5s; }
+.aurora-wave { animation: auroraDance 4s infinite alternate ease-in-out; }
+.aurora-wave-2 { animation: auroraDance 5s infinite alternate-reverse ease-in-out; }
+
+/* Página Final (Cartão de Embarque) */
+.boarding-pass-svg {
+    animation: slideUp 0.8s ease-out;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    margin-top: 10px;
+}
+.plane-icon { animation: flyAcross 3s ease-in-out infinite; }
+
+/* Definição das Keyframes */
 @keyframes snowfall {
     0% { transform: translateY(-20px); opacity: 0; }
     20% { opacity: 1; }
@@ -92,21 +145,61 @@ h1 {
     0% { opacity: 0.5; transform: scale(0.9); }
     100% { opacity: 1; transform: scale(1.1); }
 }
-@keyframes floatShip {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-10px) rotate(2deg); }
+@keyframes floatShipViking {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-8px) rotate(3deg); }
 }
-
-/* Animação do vapor do café */
-.steam {
-    animation: riseSteam 3s infinite ease-in-out;
-    opacity: 0;
-}
-.steam:nth-child(2) {
-    animation-delay: 1.5s;
+@keyframes rise {
+    0% { transform: translateY(0) scale(0.5); opacity: 0.8; }
+    100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
 }
 @keyframes riseSteam {
     0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
     50% { transform: translateY(-15px) translateX(5px) scale(1.2); opacity: 0.3; }
     100% { transform: translateY(-30px) translateX(-5px) scale(1.5); opacity: 0; }
+}
+@keyframes auroraDance {
+    0% { transform: translateY(0) scaleY(1); opacity: 0.4; }
+    100% { transform: translateY(-10px) scaleY(1.3); opacity: 0.9; }
+}
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes flyAcross {
+     0% { transform: translateX(-5px); opacity: 0.7; }
+     50% { transform: translateX(5px); opacity: 1; }
+     100% { transform: translateX(-5px); opacity: 0.7; }
+}
+
+/* ========================================================= */
+/* ADAPTAÇÃO PARA CELULARES (Telas menores que 480px)      */
+/* ========================================================= */
+@media (max-width: 480px) {
+    .container {
+        padding: 25px 15px; /* Margem interna menor */
+        margin-top: 20px;
+        width: 92%; /* Usa quase toda a tela lateral */
+        border-radius: 15px;
+    }
+
+    h1 {
+        font-size: 1.4rem; /* Letra ligeiramente menor */
+        margin-bottom: 15px;
+    }
+
+    .clue-area p {
+        font-size: 1rem;
+    }
+
+    .next-btn {
+        width: 100%; /* Botão ocupa quase toda a largura para facilitar o "toque" do dedo */
+        padding: 12px 20px;
+    }
+
+    /* Reduz um pouco o avatar para não roubar tanto espaço da tela na vertical */
+    .bear-head {
+        width: 140px; 
+        height: auto;
+    }
 }
