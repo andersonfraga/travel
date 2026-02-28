@@ -25,7 +25,7 @@ const configPistas = {
         proximaPagina: "7EIOSJD.html" 
     },
     "pista7": { 
-        dataLiberacao: "2026-03-06T16:30:00",
+        dataLiberacao: "2026-03-06T06:30:00",
         proximaPagina: "8E0D9S.html" 
     },
     "pista8": { 
