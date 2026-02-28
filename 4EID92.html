@@ -48,40 +48,12 @@
                 <span id="timer" style="font-size: 1.3em;">Calculando...</span>
             </p>
             
-            <a href="5ED98A.html" id="next-clue-btn" class="next-btn" style="display: none;">Ver Próxima Pista</a>
+            <a id="next-clue-btn" class="next-btn" style="display: none;">Ver Próxima Pista</a>
         </div>
 
+        <script src="clue.js"></script>
         <script>
-            // IMPORTANTE: No JavaScript, os meses vão de 0 a 11 (Janeiro é 0, Março é 2).
-            // Formato: (Ano, Mês, Dia, Hora, Minuto, Segundo)
-            // Exemplo para 10 de Março de 2026 às 08:00: new Date(2026, 2, 10, 8, 0, 0)
-            
-            var targetDate = new Date(2026, 2, 1, 15, 45, 0).getTime(); // ALTERE A DATA AQUI PARA CADA PISTA
-
-            var x = setInterval(function() {
-                var now = new Date().getTime();
-                var distance = targetDate - now;
-
-                if (distance <= 0) {
-                    clearInterval(x);
-                    // Esconde o texto e mostra o botão
-                    document.getElementById("timer-text").style.display = "none";
-                    document.getElementById("next-clue-btn").style.display = "inline-block";
-                } else {
-                    // Calcula o tempo restante
-                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    // Formata o texto
-                    var timeString = "";
-                    if(days > 0) timeString += days + "d ";
-                    timeString += hours + "h " + minutes + "m " + seconds + "s";
-                    
-                    document.getElementById("timer").innerHTML = timeString;
-                }
-            }, 1000);
+            iniciarContador("pista4"); 
         </script>
     </div>
 </body>
