@@ -3,74 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surpresa - Revelação!</title>
+    <title>Surpresa - Arrume as Malas!</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Ajuste para o container ficar um pouco mais largo nesta página */
-        .container {
-            width: 450px;
-            max-width: 95%;
-        }
-        
-        /* Uma animação extra para o cartão de embarque surgir */
-        .boarding-pass-svg {
-            animation: slideUp 0.8s ease-out;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        /* Animação do Cartão de Embarque Deslizando */
+        .ticket-container {
+            animation: slideUpFade 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            opacity: 0;
+            transform: translateY(50px);
+            margin-top: 20px;
         }
 
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(30px); }
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(100px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Animaçãozinha do avião dentro do SVG */
-        .plane-icon {
-            animation: flyAcross 3s ease-in-out infinite;
+        /* Design do Cartão de Embarque */
+        .boarding-pass {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            color: #333;
         }
-        @keyframes flyAcross {
-             0% { transform: translateX(-5px); opacity: 0.7; }
-             50% { transform: translateX(5px); opacity: 1; }
-             100% { transform: translateX(-5px); opacity: 0.7; }
+
+        /* Cabeçalho da Companhia Aérea */
+        .ticket-header {
+            background: #1a237e;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Corpo principal do bilhete */
+        .ticket-body {
+            padding: 25px 20px;
+            background: #fff;
+        }
+
+        /* Estilo da Rota (AMS -> ARN) */
+        .route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .route h2 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #1a237e;
+        }
+        .route p {
+            margin: 0;
+            font-size: 0.8em;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .plane-icon {
+            font-size: 2em;
+            color: #ffb300;
+        }
+
+        /* Informações do Passageiro e Voo */
+        .ticket-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .label {
+            font-size: 0.7em;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: block;
+        }
+        .value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        /* Canhoto / Código de Barras */
+        .ticket-stub {
+            border-top: 2px dashed #ccc;
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        /* Recortes laterais do picote (ajustados para serem transparentes/herdar o fundo) */
+        .ticket-stub::before, .ticket-stub::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            box-shadow: 0 0 0 20px #f9f9f9; /* Truque visual para o recorte sem depender de cor sólida no fundo */
+            border-radius: 50%;
+            clip-path: inset(10px 0 0 0); /* Esconde a parte de cima da sombra */
+        }
+        .ticket-stub::before { left: -10px; clip-path: polygon(100% 50%, 100% 100%, 0 100%, 0 50%); }
+        .ticket-stub::after { right: -10px; clip-path: polygon(100% 50%, 100% 100%, 0 100%, 0 50%); }
+        
+        /* O "Destino Revelado" bem grande */
+        .grand-reveal {
+            font-size: 1.4em;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Parabéns! Você descobriu!</h1>
+<body style="color: white; text-align: center; padding: 20px;">
+
+    <div class="container" style="max-width: 600px; margin: 0 auto;">
         
-       <svg class="bear-head" width="200" height="200" viewBox="0 0 200 260">
-            <circle cx="40" cy="80" r="35" fill="#f0f8ff"/>
-            <circle cx="160" cy="80" r="35" fill="#f0f8ff"/>
-            <circle cx="40" cy="80" r="20" fill="#e0f2f1"/>
-            <circle cx="160" cy="80" r="20" fill="#e0f2f1"/>
-            
+        <h1 class="grand-reveal">SURPRESA! <3 </h1>
+
+        <svg class="bear-head" width="150" height="150" viewBox="0 0 200 260" style="margin-bottom: -10px;">
+            <circle cx="40" cy="80" r="35" fill="#f0f8ff"/><circle cx="160" cy="80" r="35" fill="#f0f8ff"/>
+            <circle cx="40" cy="80" r="20" fill="#e0f2f1"/><circle cx="160" cy="80" r="20" fill="#e0f2f1"/>
             <ellipse cx="100" cy="130" rx="90" ry="80" fill="#f0f8ff"/>
-            
             <path d="M 40 85 C 40 30, 160 30, 160 85 C 130 100, 70 100, 40 85 Z" fill="#6D4C41"/>
             <path d="M 40 85 Q 100 103 160 85" fill="none" stroke="#4E342E" stroke-width="4" stroke-linecap="round"/>
             <path d="M 100 45 L 100 94" fill="none" stroke="#4E342E" stroke-width="2" stroke-dasharray="4,3"/>
-
             <path d="M 38 75 Q 100 85 162 75" fill="none" stroke="#212121" stroke-width="6"/>
-
             <rect x="52" y="58" width="42" height="28" rx="12" fill="#8D6E63" stroke="#3E2723" stroke-width="3"/>
             <rect x="106" y="58" width="42" height="28" rx="12" fill="#8D6E63" stroke="#3E2723" stroke-width="3"/>
             <path d="M 94 72 Q 100 68 106 72" fill="none" stroke="#3E2723" stroke-width="4" stroke-linecap="round"/>
-
             <rect x="58" y="64" width="30" height="16" rx="6" fill="#212121"/>
             <rect x="112" y="64" width="30" height="16" rx="6" fill="#212121"/>
-            
             <path d="M 62 70 L 72 66" stroke="#ffffff" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
             <path d="M 62 75 L 67 73" stroke="#ffffff" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
             <path d="M 116 70 L 126 66" stroke="#ffffff" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
             <path d="M 116 75 L 121 73" stroke="#ffffff" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
-
             <ellipse cx="100" cy="150" rx="45" ry="35" fill="#e0f2f1"/>
             <path d="M 85 140 Q 100 160 115 140 L 100 155 Z" fill="#2c3e50"/>
-            <g class="bear-eyes">
-                <circle cx="75" cy="120" r="8" fill="#2c3e50"/>
-                <circle cx="125" cy="120" r="8" fill="#2c3e50"/>
-            </g>
-
+            <g class="bear-eyes"><circle cx="75" cy="120" r="8" fill="#2c3e50"/><circle cx="125" cy="120" r="8" fill="#2c3e50"/></g>
             <path d="M 25 175 Q 100 215 175 175 Q 165 200 100 210 Q 35 200 25 175 Z" fill="#d32f2f"/> 
             <path d="M 125 185 L 115 235 L 145 235 L 150 180 Z" fill="#b71c1c"/> 
             <line x1="120" y1="235" x2="118" y2="245" stroke="#b71c1c" stroke-width="3" stroke-linecap="round"/>
@@ -79,67 +161,84 @@
             <line x1="143" y1="235" x2="145" y2="245" stroke="#b71c1c" stroke-width="3" stroke-linecap="round"/>
         </svg>
 
-        <div class="clue-area" style="min-height: auto; margin-bottom: 10px;">
-            <p style="font-size: 1.2em; margin-bottom: 20px;">Arrume as malas, nós vamos para...</p>
-            
-            <svg class="boarding-pass-svg" width="380" height="220" viewBox="0 0 380 220" xmlns="http://www.w3.org/2000/svg">
-                 <defs>
-                     <linearGradient id="ticketGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                         <stop offset="0%" style="stop-color:#ffffff" />
-                         <stop offset="100%" style="stop-color:#f1f8e9" /> </linearGradient>
-                 </defs>
-                 <rect x="5" y="5" width="370" height="210" rx="15" ry="15" fill="url(#ticketGrad)" stroke="#81d4fa" stroke-width="2"/>
+        <div class="ticket-container">
+            <div class="boarding-pass">
+                
+                <div class="ticket-header">
+                    ✈️ OUR NEXT ADVENTURE
+                </div>
+                
+                <div class="ticket-body">
+                    <div class="route">
+                        <div>
+                            <h2>AMS</h2>
+                            <p>Amsterdã, NL</p>
+                        </div>
+                        <div class="plane-icon">✈️</div>
+                        <div>
+                            <h2>ARN</h2>
+                            <p>Estocolmo, SE</p>
+                        </div>
+                    </div>
 
-                 <g transform="translate(25, 30)">
-                    <text font-family="sans-serif" font-size="10" fill="#546e7a" font-weight="bold" letter-spacing="2">SURPRESA AIRLINES</text>
-                    <path d="M 130 0 L 140 -5 L 135 -8 L 145 -5 L 155 -2 L 150 0 L 145 5 L 150 2 L 130 5 Z" fill="#81d4fa" transform="translate(180, -2) scale(0.8)"/>
-                 </g>
+                    <div class="ticket-details">
+                        <div>
+                            <span class="label">Passageira VIP</span>
+                            <p class="value">O Amor da Minha Vida</p>
+                        </div>
+                        <div>
+                            <span class="label">Data de Partida</span>
+                            <p class="value">Hoje!</p>
+                        </div>
+                        <div>
+                            <span class="label">Classe</span>
+                            <p class="value">Primeira Classe ❤️</p>
+                        </div>
+                        <div>
+                            <span class="label">Clima Previsto</span>
+                            <p class="value">❄️ Muito Frio, Neve & Comida!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ticket-stub">
+                    <!-- <p style="margin: 0 0 10px 0; font-size: 1.2em; color: #1a237e; font-weight: bold;">DESTINO: ESTOCOLMO, SUÉCIA!</p> -->
+                    
+                    <svg width="200" height="40" viewBox="0 0 200 40" fill="#333">
+                        <rect x="0" y="0" width="4" height="40"/>
+                        <rect x="6" y="0" width="2" height="40"/>
+                        <rect x="12" y="0" width="6" height="40"/>
+                        <rect x="22" y="0" width="2" height="40"/>
+                        <rect x="28" y="0" width="8" height="40"/>
+                        <rect x="40" y="0" width="4" height="40"/>
+                        <rect x="48" y="0" width="2" height="40"/>
+                        <rect x="54" y="0" width="10" height="40"/>
+                        <rect x="68" y="0" width="2" height="40"/>
+                        <rect x="74" y="0" width="6" height="40"/>
+                        <rect x="84" y="0" width="4" height="40"/>
+                        <rect x="92" y="0" width="2" height="40"/>
+                        <rect x="98" y="0" width="8" height="40"/>
+                        <rect x="110" y="0" width="4" height="40"/>
+                        <rect x="118" y="0" width="6" height="40"/>
+                        <rect x="128" y="0" width="2" height="40"/>
+                        <rect x="134" y="0" width="10" height="40"/>
+                        <rect x="148" y="0" width="4" height="40"/>
+                        <rect x="156" y="0" width="2" height="40"/>
+                        <rect x="162" y="0" width="6" height="40"/>
+                        <rect x="172" y="0" width="4" height="40"/>
+                        <rect x="180" y="0" width="8" height="40"/>
+                        <rect x="192" y="0" width="4" height="40"/>
+                        <rect x="198" y="0" width="2" height="40"/>
+                    </svg>
+                </div>
 
-                 <g transform="translate(25, 70)">
-                     <text x="0" y="0" font-family="sans-serif" font-size="38" fill="#1565c0" font-weight="900">AMS</text>
-                     <text x="0" y="15" font-family="sans-serif" font-size="11" fill="#78909c">Amsterdam</text>
-
-                     <g transform="translate(115, -5)">
-                         <path class="plane-icon" d="M 0 0 L 20 0 L 15 -10 L 25 0 L 35 5 L 25 10 L 15 20 L 20 10 L 0 10 Z" fill="#039be5" />
-                         <line x1="-10" y1="5" x2="45" y2="5" stroke="#81d4fa" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
-                     </g>
-
-                     <text x="330" y="0" font-family="sans-serif" font-size="38" fill="#1565c0" font-weight="900" text-anchor="end">ARN</text>
-                     <text x="330" y="15" font-family="sans-serif" font-size="11" fill="#78909c" text-anchor="end">Estocolmo (Arlanda)</text>
-                 </g>
-
-                 <line x1="25" y1="100" x2="355" y2="100" stroke="#cfd8dc" stroke-width="1" stroke-dasharray="5,5"/>
-
-                 <g transform="translate(25, 125)" font-family="sans-serif">
-                      <text x="0" y="0" font-size="9" fill="#90a4ae" font-weight="bold">PASSAGEIRO</text>
-                      <text x="0" y="14" font-size="13" fill="#37474f" font-weight="bold">MEU AMOR ❤️</text>
-
-                      <text x="0" y="40" font-size="9" fill="#90a4ae" font-weight="bold">VOO</text>
-                      <text x="0" y="54" font-size="13" fill="#37474f" font-weight="bold">SK 556</text>
-
-                      <text x="120" y="0" font-size="9" fill="#90a4ae" font-weight="bold">DATA</text>
-                      <text x="120" y="14" font-size="13" fill="#37474f" font-weight="bold">MAR 10</text>
-
-                      <text x="120" y="40" font-size="9" fill="#90a4ae" font-weight="bold">HORÁRIO</text>
-                      <text x="120" y="54" font-size="13" fill="#37474f" font-weight="bold">11:15</text>
-
-                      <text x="230" y="0" font-size="9" fill="#90a4ae" font-weight="bold">ASSENTO</text>
-                      <text x="230" y="14" font-size="13" fill="#1565c0" font-weight="bold">VIP (Janela)</text>
-
-                      <text x="230" y="40" font-size="9" fill="#90a4ae" font-weight="bold">CLASSE</text>
-                      <text x="230" y="54" font-size="13" fill="#1565c0" font-weight="bold">SURPRESA</text>
-                 </g>
-                 
-                 <path d="M 25 195 L 355 195 L 355 210 L 25 210 Z" fill="#1c3a53" opacity="0.1"/>
-                 <g transform="translate(30, 198)" fill="#37474f">
-                     <rect width="2" height="10"/><rect x="4" width="3" height="10"/><rect x="8" width="1" height="10"/><rect x="12" width="4" height="10"/>
-                     <text x="165" y="8" font-family="monospace" font-size="9" letter-spacing="3">AMS-ARN-LOVE-TRIP-2024</text>
-                     <rect x="310" width="2" height="10"/><rect x="314" width="3" height="10"/><rect x="318" width="1" height="10"/>
-                 </g>
-            </svg>
             </div>
+        </div>
 
-        <a href="#" class="next-btn" style="background-color: #ffeb3b; color: #0a1a2a;">❤️ TE AMO! ❤️</a>
+        <p style="margin-top: 30px; font-size: 1.2em; color: #a5d6a7;">
+            Prepare os casacos, arrume as malas e vamos aproveitar mais essa viagem juntos? :)
+        </p>
+
     </div>
 </body>
 </html>
